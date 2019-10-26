@@ -1,6 +1,5 @@
 package com.anousa.kotlinmvvmdagger.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.anousa.kotlinmvvmdagger.data.Contact
@@ -16,7 +15,7 @@ class ContactViewModel @Inject constructor(private val repository: ContactReposi
     ViewModel() {
     var isLoading = MutableLiveData<Boolean>().apply { postValue(false) }
     private val compositeDisposable = CompositeDisposable()
-    val contactList = MutableLiveData<LiveData<List<Contact>>>()
+    val contactList = MutableLiveData<List<Contact>>()
     val errorMesage = MutableLiveData<String>().apply { postValue("") }
 
     fun getAllContacts() {

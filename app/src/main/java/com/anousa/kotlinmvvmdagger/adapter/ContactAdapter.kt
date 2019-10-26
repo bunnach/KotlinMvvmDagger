@@ -42,4 +42,9 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.MyViewHolder>() {
         val phone: TextView = rootView.phone
     }
 
+    fun setContactList(contactList: List<Contact>) {
+        this.contactList.addAll(contactList)
+        notifyDataSetChanged()
+    }
+
 }

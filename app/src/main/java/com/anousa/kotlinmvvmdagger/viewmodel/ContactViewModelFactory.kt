@@ -1,4 +1,4 @@
-package com.thmeythemy.allprovinces.viewmodel
+package com.anousa.kotlinmvvmdagger.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
