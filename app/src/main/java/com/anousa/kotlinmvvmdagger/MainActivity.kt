@@ -2,6 +2,7 @@ package com.anousa.kotlinmvvmdagger
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -37,6 +38,13 @@ class MainActivity : AppCompatActivity() {
 
         contactViewModel.contactList.observe(this, Observer<List<Contact>>{
             adapter.setContactList(it)
+        })
+
+        contactViewModel.exception.observe(this, Observer<Throwable> {
+            it?.let {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                contactViewModel.exception.value = null
+            }
         })
 
         getAllContacts()

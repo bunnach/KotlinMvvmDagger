@@ -16,7 +16,10 @@ class ContactViewModel @Inject constructor(private val repository: ContactReposi
     var isLoading = MutableLiveData<Boolean>().apply { postValue(false) }
     private val compositeDisposable = CompositeDisposable()
     val contactList = MutableLiveData<List<Contact>>()
-    val errorMesage = MutableLiveData<String>().apply { postValue("") }
+    /**
+     * Handle errors
+     */
+    var exception = MutableLiveData<Throwable>()
 
     fun getAllContacts() {
         compositeDisposable.add(
@@ -28,7 +31,7 @@ class ContactViewModel @Inject constructor(private val repository: ContactReposi
                 .subscribe({
                     contactList.postValue(it)
                 }, {
-                    errorMesage.postValue(it.message)
+                    exception.postValue(it)
                 })
         )
     }
