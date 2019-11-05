@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ContactRepository @Inject constructor(private val service: ContactService) {
+open class ContactRepository @Inject constructor(private val service: ContactService) {
 
     fun getAllContacts(): Observable<List<Contact>> {
         return service.getAllContact()
