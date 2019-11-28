@@ -41,19 +41,21 @@ class ContactViewModelTest {
         MockitoAnnotations.initMocks(this)
         contactRepository = ContactRepository(contactService)
         contactViewModel = ContactViewModel(contactRepository)
-        contactViewModel.contactList.observeForever(listObserver)
         contactViewModel.isLoading.observeForever(loadingObserver)
+        contactViewModel.contactList.observeForever(listObserver)
         contactViewModel.exception.observeForever(exceptionObserver)
     }
 
     @Test
     fun testApiFetchDataSuccess() {
         val responseList = arrayListOf<Contact>()
+
         // Mock API response
         `when`(contactRepository.getAllContacts()).thenReturn(Observable.just(responseList))
         contactViewModel.getAllContacts()
+        verify(loadingObserver, times(1)).onChanged(true)
         verify(listObserver).onChanged(responseList)
-        verify(loadingObserver).onChanged(true)
+        verify(loadingObserver, times(1)).onChanged(false)
         verify(exceptionObserver, never()).onChanged(Throwable("error"))
     }
 
@@ -64,8 +66,9 @@ class ContactViewModelTest {
         // Mock API response
         `when`(contactRepository.getAllContacts()).thenReturn(Observable.error(myError))
         contactViewModel.getAllContacts()
+        verify(loadingObserver, times(1)).onChanged(true)
         verify(listObserver, never()).onChanged(responseList)
-        verify(loadingObserver).onChanged(true)
+        verify(loadingObserver, times(1)).onChanged(false)
         verify(exceptionObserver).onChanged(myError)
     }
 

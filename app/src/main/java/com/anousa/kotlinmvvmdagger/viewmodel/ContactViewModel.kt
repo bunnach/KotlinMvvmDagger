@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class ContactViewModel @Inject constructor(private val repository: ContactRepository) :
     ViewModel() {
-    var isLoading = MutableLiveData<Boolean>().apply { postValue(false) }
+    var isLoading = MutableLiveData<Boolean>()
     private val compositeDisposable = CompositeDisposable()
     val contactList = MutableLiveData<List<Contact>>()
     /**
